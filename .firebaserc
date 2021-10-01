@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "apollo-fire-tasks": {
+      "hosting": {
+        "fire-tasks": [
+          "apollo-fire-tasks"
+        ]
+      }
+    }
+  }
+}
