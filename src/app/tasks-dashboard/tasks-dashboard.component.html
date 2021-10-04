@@ -1,0 +1,9 @@
+<div class="list-container" *ngFor="let list of taskLists$ | async">
+  <h2>{{ list.label }}</h2>
+  <mat-list class="list">
+    <mat-list-item *ngFor="let task of list.tasks" (click)="showTaskDetail(task)">
+      <mat-icon matListIcon>folder</mat-icon>
+      {{ task.title }}
+    </mat-list-item>
+  </mat-list>
+</div>

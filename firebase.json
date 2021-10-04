@@ -24,5 +24,40 @@
         }
       ]
     }
-  ]
+  ],
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "functions": {
+    "predeploy": "npm run build",
+    "ignore": [
+      "node_modules",
+      "src",
+      "coverage",
+      "__tests__",
+      "*.md",
+      "*.log"
+    ],
+    "source": "functions",
+    "runtime": "nodejs14"
+  },
+  "emulators": {
+    "functions": {
+      "port": 4104
+    },
+    "firestore": {
+      "port": 4103
+    },
+    "hosting": {
+      "port": 4101
+    },
+    "auth": {
+      "port": 4102
+    },
+    "ui": {
+      "port": 4100,
+      "enabled": true
+    }
+  }
 }

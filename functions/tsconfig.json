@@ -1,12 +1,14 @@
 {
   "compilerOptions": {
+    "baseUrl": "./",
     "module": "commonjs",
-    "noImplicitReturns": true,
-    "noUnusedLocals": true,
     "outDir": "lib",
     "sourceMap": true,
     "strict": true,
-    "target": "es2017"
+    "target": "es2017",
+    "paths": {
+      "@firetasks/models": ["../libs/models/index.ts"],
+    }
   },
   "compileOnSave": true,
   "include": [

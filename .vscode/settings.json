@@ -1,0 +1,72 @@
+{
+  "typescript.tsdk": "node_modules/typescript/lib/",
+  "eslint.workingDirectories": [
+    "./",
+    "./functions"
+  ],
+  "eslint.validate":  [
+    "javascript",
+    "typescript",
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.alwaysShowStatus": true,
+  "vsicons.associations.files": [
+    { "icon": "jest", "extensions": ["jest.ci.config.js","jest.firestore.config.js"], "filename": true, "format": "svg" },
+    { "icon": "firebasehosting", "extensions": ["storage.rules"], "filename": true, "format": "svg" },
+  ],
+    "files.watcherExclude": {
+    "**/*.htm": true,
+    "**/.git/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true,
+    "**/tmp/**": true,
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/dist/**": true,
+    "**/log/**": true,
+    "**/logs/**": true,
+    "**/.fdk/**": true
+  },
+
+  "files.exclude": {
+    "**/*.htm": true,
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true,
+    "**/tmp/**": true,
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/dist/**": true,
+    "**/log/**": true,
+    "**/.fdk/**": true
+  },
+  "search.exclude": {
+    "**/*.htm": true,
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true,
+    "**/tmp/**": true,
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/dist/**": true,
+    "**/log/**": true
+  },
+
+}
