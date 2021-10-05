@@ -9,7 +9,7 @@
 
   <span *ngIf="user">
     Hello {{ user?.displayName }}!
-    <button mat-flat-button>Logout</button>
+    <button mat-flat-button (click)="logout()">Logout</button>
   </span>
 </mat-toolbar>
 

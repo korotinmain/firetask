@@ -9,11 +9,19 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 export class AppComponent implements OnInit {
   user?: any;
 
-  constructor(private auth: AngularFireAuth) { }
+  constructor(
+    private auth: AngularFireAuth,
+  ) { }
 
   ngOnInit() {
     this.auth.onAuthStateChanged((user) => {
       this.user = user;
     });
+  }
+
+  logout() {
+    this.auth.signOut();
+
+    window.location.reload();
   }
 }
