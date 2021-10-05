@@ -44,3 +44,4 @@ testem.log
 .DS_Store
 Thumbs.db
 *.log
+src/assets/images/icon-1024.png
