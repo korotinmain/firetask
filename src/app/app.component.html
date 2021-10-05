@@ -4,6 +4,13 @@
   </a>
   &nbsp;
   apollo.ai FireTasks
+
+  <span class="spacer"></span>
+
+  <span *ngIf="user">
+    Hello {{ user?.displayName }}!
+    <button mat-flat-button>Logout</button>
+  </span>
 </mat-toolbar>
 
 <div class="content-container">

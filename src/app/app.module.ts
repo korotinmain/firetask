@@ -9,20 +9,26 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { MatDialogModule } from '@angular/material/dialog';
+import { USE_EMULATOR as USE_AUTH_EMULATOR } from '@angular/fire/compat/auth';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { connectFirestoreEmulator, getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { initializeAuth, provideAuth, connectAuthEmulator, getAuth } from '@angular/fire/auth';
 
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TasksDashboardComponent } from './tasks-dashboard/tasks-dashboard.component';
 import { TaskDialogComponent } from './tasks-dashboard/task-dialog.component';
+import { LoginComponent } from './auth/login.component';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 
 @NgModule({
   declarations: [
     AppComponent,
     TasksDashboardComponent,
     TaskDialogComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,7 +42,16 @@ import { TaskDialogComponent } from './tasks-dashboard/task-dialog.component';
     MatToolbarModule,
     MatListModule,
     MatDialogModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
+    // provideAuth(() => {
+    //   const auth = getAuth();
+    //   if (!environment.production) {
+    //     connectAuthEmulator(auth, 'http://localhost:4102');
+    //   }
+    //   return auth;
+    // }),
     provideFirestore(() => {
       const firestore = getFirestore();
       if (!environment.production) {
@@ -45,7 +60,9 @@ import { TaskDialogComponent } from './tasks-dashboard/task-dialog.component';
       return firestore;
     }),
   ],
-  providers: [],
+  providers: [
+    { provide: USE_AUTH_EMULATOR, useValue: !environment.production ? ['http://localhost:4102'] : undefined },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

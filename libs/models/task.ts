@@ -1,3 +1,5 @@
+import { UserRef } from './user';
+
 export enum TaskStatus {
   TODO = 'TODO',
   IN_PROGRESS = 'IN_PROGRESS',
@@ -5,27 +7,36 @@ export enum TaskStatus {
 }
 
 export interface Task {
+  id: string;
   title: string;
-  checklist?: string[];
+  activities?: TaskActivity[];
   status: TaskStatus;
+  owner: UserRef;
   createdAt: Date;
   updatedAt: Date;
 
   toFirestore(): any;
 }
 
+export interface TaskActivity {
+  title: string;
+  assignee?: UserRef;
+  isCompleted: boolean;
+}
+
 export class TaskModel implements Task {
+  id: string;
   title: string = '';
-  checklist?: string[] = [];
+  activities?: TaskActivity[] = [];
   status = TaskStatus.TODO;
+  owner: UserRef;
   createdAt: Date;
   updatedAt: Date;
 
   constructor(data: Partial<Task>) {
+    this.id = data.id!;
+    this.owner = data.owner!;
     this.createdAt = this.updatedAt = data.createdAt || new Date();
-
-    // TODO: remove this as soon as checklist are propery implemented
-    delete data.checklist;
 
     Object.assign(this, data);
   }

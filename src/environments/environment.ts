@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   firebase: {
     projectId: 'firetasks-local',
+    apiKey: 'firetasks-local',
   }
 };
 
