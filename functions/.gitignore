@@ -7,3 +7,6 @@ typings/
 
 # Node.js dependency directory
 node_modules/
+
+# firebase ADMIN SDK private key
+apollo-fire-tasks-firebase-adminsdk-b8mgo-40040892e6.json

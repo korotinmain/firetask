@@ -8,7 +8,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "jest",
     "test:ng": "ng test",
-    "start:emulators": "firebase --project=firetasks-local emulators:start --only auth,functions,firestore"
+    "start:emulators": "firebase --project=firetasks-local emulators:start --only auth,functions,firestore",
+    "deploy": "firebase deploy --only hosting,firestore"
   },
   "private": true,
   "dependencies": {

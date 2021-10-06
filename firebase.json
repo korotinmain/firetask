@@ -1,6 +1,7 @@
 {
   "hosting": [
     {
+      "predeploy": "yarn build",
       "target": "fire-tasks",
       "public": "dist/fire-tasks",
       "ignore": [
