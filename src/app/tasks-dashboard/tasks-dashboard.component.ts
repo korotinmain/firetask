@@ -27,25 +27,8 @@ export class TasksDashboardComponent implements OnInit {
     this.taskLists$ = this.taskService.subscribeToTasks();
   }
 
-  async showTaskDetail(task: Task) {
-    // console.log('showTaskDetail', task);
-    const dialogRef = this.dialog.open(TaskDialogComponent, {
-      width: '450px',
-      height: '600px',
-      data: {
-        task,
-        userId: this.user?.uid,
-      },
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed', result);
-    });
-  }
-
   async addNewTask(status: string) {
-    // console.log('addNewTask', status);
-    const dialogRef = this.dialog.open(TaskDialogComponent, {
+    this.dialog.open(TaskDialogComponent, {
       width: '450px',
       height: '600px',
       data: {
@@ -59,9 +42,21 @@ export class TasksDashboardComponent implements OnInit {
         userId: this.user?.uid,
       },
     });
+  }
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed', result);
+  async showTaskDetail(task: Task) {
+    // console.log('showTaskDetail', task);
+    const dialogRef = this.dialog.open(TaskDialogComponent, {
+      width: '450px',
+      height: '600px',
+      data: {
+        task,
+        userId: this.user?.uid,
+      },
     });
+
+    // dialogRef.afterClosed().subscribe(result => {
+    //   console.log('The dialog was closed', result);
+    // });
   }
 }
