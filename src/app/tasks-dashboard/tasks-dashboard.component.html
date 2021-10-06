@@ -1,9 +1,16 @@
 <div class="list-container" *ngFor="let list of taskLists$ | async">
-  <h2>{{ list.label }}</h2>
-  <mat-list class="list">
-    <mat-list-item *ngFor="let task of list.tasks" (click)="showTaskDetail(task)">
-      <mat-icon matListIcon>assignment</mat-icon>
-      {{ task.title }}
-    </mat-list-item>
-  </mat-list>
+  <div class="list-title" fxLayout="row" fxLayoutAlign="space-between">
+    <h2>{{ list.label }}</h2>
+    <!-- <button mat-mini-fab color="primary">
+      <mat-icon>add</mat-icon>
+    </button> -->
+  </div>
+  <div class="list">
+    <mat-card *ngFor="let task of list.tasks" class="task-card" (click)="showTaskDetail(task)">
+      <mat-card-header>
+        <mat-icon mat-card-avatar>assignment</mat-icon>
+        <mat-card-title>{{ task.title }}</mat-card-title>
+      </mat-card-header>
+    </mat-card>
+  </div>
 </div>
