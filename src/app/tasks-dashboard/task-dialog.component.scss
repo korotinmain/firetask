@@ -1,0 +1,28 @@
+.dialog {
+  position: relative;
+  height: 100%;
+
+  .placeholder {
+    color: #ccc;
+    font-weight: normal;
+  }
+  .status {}
+  .owner {
+    font-size: 80%;
+    color: #666;
+  }
+  .dates {
+    font-size: 80%;
+    color: #666;
+  }
+}
+.close {
+  position: absolute;
+  right: -10px;
+  top: -10px;
+}
+.delete {
+  position: absolute;
+  right: -10px;
+  bottom: -10px;
+}

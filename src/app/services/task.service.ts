@@ -1,7 +1,7 @@
 import { first, groupBy, mapValues } from 'lodash';
 import { Injectable } from '@angular/core';
-import { Firestore, collectionData, collection } from '@angular/fire/firestore';
-import { TaskModel, TaskStatus } from '@firetasks/models';
+import { Firestore, collectionData, collection, doc, setDoc, deleteDoc } from '@angular/fire/firestore';
+import { Task, TaskModel, TaskStatus } from '@firetasks/models';
 import { map, tap } from 'rxjs/operators';
 
 export interface TasksGrouped {
@@ -9,6 +9,7 @@ export interface TasksGrouped {
 }
 export interface TaskList {
   label: string;
+  status: string;
   order: number;
   tasks: TaskModel[];
 }
@@ -32,14 +33,24 @@ export class TaskService {
     );
   }
 
+  save(task: Task) {
+    let taskRef = task.id ? doc(this.firestore, `tasks/${task.id}`) : doc(collection(this.firestore, 'tasks'));
+    task.id = task.id || taskRef.id;
+    return setDoc(taskRef, task.toFirestore());
+  }
+
+  delete(task: Task) {
+    return deleteDoc(doc(this.firestore, `tasks/${task.id}`));
+  }
+
   private getStatusInfo(statusEnum: string) {
     switch (statusEnum) {
       case TaskStatus.TODO:
-        return {label: 'To do', order: 0};
+        return {label: 'To do', order: 0, status: statusEnum};
       case TaskStatus.IN_PROGRESS:
-        return {label: 'In progress', order: 1};
+        return {label: 'In progress', order: 1, status: statusEnum};
       case TaskStatus.DONE:
-        return {label: 'Done', order: 2};
+        return {label: 'Done', order: 2, status: statusEnum};
       default:
         return null;
     }

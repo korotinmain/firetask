@@ -16,6 +16,7 @@ export interface Task {
   updatedAt: Date;
 
   toFirestore(): any;
+  copyWith(data: Partial<Task>): Task;
 }
 
 export interface TaskActivity {
@@ -51,5 +52,12 @@ export class TaskModel implements Task {
 
   toFirestore() {
     return { ...this };
+  }
+
+  copyWith(data: Partial<Task>): Task {
+    return new TaskModel({
+      ...this,
+      ...data
+    });
   }
 }

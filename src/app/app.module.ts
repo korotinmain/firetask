@@ -10,10 +10,17 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatChipsModule } from '@angular/material/chips';
+import { EditableModule } from '@ngneat/edit-in-place';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { USE_EMULATOR as USE_AUTH_EMULATOR } from '@angular/fire/compat/auth';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { connectFirestoreEmulator, getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { initializeAuth, provideAuth, connectAuthEmulator, getAuth } from '@angular/fire/auth';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
@@ -21,8 +28,6 @@ import { AppComponent } from './app.component';
 import { TasksDashboardComponent } from './tasks-dashboard/tasks-dashboard.component';
 import { TaskDialogComponent } from './tasks-dashboard/task-dialog.component';
 import { LoginComponent } from './auth/login.component';
-import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 
 @NgModule({
   declarations: [
@@ -34,11 +39,16 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     MatCardModule,
+    MatChipsModule,
     MatGridListModule,
     MatIconModule,
     MatButtonModule,
+    MatInputModule,
+    MatFormFieldModule,
     LayoutModule,
     FlexLayoutModule,
     MatToolbarModule,
@@ -61,6 +71,7 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
       }
       return firestore;
     }),
+    EditableModule,
   ],
   providers: [
     { provide: USE_AUTH_EMULATOR, useValue: !environment.production ? ['http://localhost:4102'] : undefined },

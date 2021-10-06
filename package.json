@@ -24,6 +24,7 @@
     "@angular/platform-browser": "~12.2.0",
     "@angular/platform-browser-dynamic": "~12.2.0",
     "@angular/router": "~12.2.0",
+    "@ngneat/edit-in-place": "^1.5.0",
     "firebase": "^9.0.0",
     "lodash": "^4.17.21",
     "rxfire": "^6.0.0",
