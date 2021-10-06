@@ -3,6 +3,8 @@ import { readFileSync } from 'fs';
 import * as firebase from '@firebase/testing';
 import { app as fbApp } from 'firebase';
 
+import { TaskStatus } from '../../../libs/models';
+
 // Visualize Evaluation: http://localhost:4103/emulator/v1/projects/test-firestore-security-project:ruleCoverage.html
 const TEST_FIREBASE_PROJECT_ID = 'test-firestore-security-project';
 
@@ -83,15 +85,24 @@ describe('tasks collection', () => {
         db.doc('tasks/task-id').update({}),
     );
     await firebase.assertFails(
+        db.doc('tasks/task-id').update({ status: TaskStatus.DONE }),
+    );
+    await firebase.assertFails(
         db.doc('tasks/task-id').delete(),
     );
   });
 
-  it('non-owners should NOT be allowed to update or delete tasks', async () => {
+  it('non-owners should NOT be allowed to update or delete tasks (only exception is the status field)', async () => {
     const db = initializeFirestoreTestAppWithUser(testUser2);
 
     await firebase.assertFails(
-        db.doc('tasks/task-id').update({}),
+        db.doc('tasks/task-id').update({ title: 'i am not allowed' }),
+    );
+    await firebase.assertSucceeds(
+        db.doc('tasks/task-id').update({ status: TaskStatus.DONE }),
+    );
+    await firebase.assertFails(
+        db.doc('tasks/task-id').update({ status: TaskStatus.DONE, title: 'i am not allowed' }),
     );
     await firebase.assertFails(
         db.doc('tasks/task-id').delete(),
@@ -103,6 +114,9 @@ describe('tasks collection', () => {
 
     await firebase.assertSucceeds(
         db.doc('tasks/task-id').update({}),
+    );
+    await firebase.assertSucceeds(
+        db.doc('tasks/task-id').update({ status: TaskStatus.DONE }),
     );
     await firebase.assertSucceeds(
         db.doc('tasks/task-id').delete(),
