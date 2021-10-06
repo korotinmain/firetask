@@ -1,8 +1,8 @@
-import { first, groupBy, mapValues } from 'lodash';
+import { groupBy, mapValues } from 'lodash';
 import { Injectable } from '@angular/core';
 import { Firestore, collectionData, collection, doc, setDoc, deleteDoc } from '@angular/fire/firestore';
 import { Task, TaskModel, TaskStatus } from '@firetasks/models';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 export interface TasksGrouped {
   [key: string]: TaskList;
