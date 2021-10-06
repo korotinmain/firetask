@@ -26,7 +26,7 @@ const testUser2 = {
   id: 'testUser-2',
 };
 
-describe('tasks collection', () => {
+describe('users collection', () => {
   let admin: fbApp.App;
 
   beforeAll((done) => {
@@ -48,64 +48,52 @@ describe('tasks collection', () => {
     await Promise.all(firebase.apps().map((app) => app.delete()));
   });
 
-  function createTask(id: string, owner: any) {
-    return admin.firestore().doc(`tasks/${id}`).set({
+  function createTask(id: string) {
+    return admin.firestore().doc(`users/${id}`).set({
       id,
-      title: 'test',
-      owner,
+      name: 'test',
     });
   }
 
   beforeEach(async () => {
-    await createTask('task-id', testUser1);
+    await createTask('user-id');
   });
 
-  it('any signedin user should be able to read tasks', async () => {
+  it('everyone should be able to read users', async () => {
+    const db = initializeFirestoreTestAppWithUser();
+
+    await firebase.assertSucceeds(
+        db.doc('users/user-id').get(),
+    );
+  });
+
+  it('any signedin user should be able to read users', async () => {
     const db = initializeFirestoreTestAppWithUser(testUser1);
 
     await firebase.assertSucceeds(
-        db.doc('tasks/task-id').get(),
+        db.doc('users/user-id').get(),
     );
   });
 
-  it('any not-signedin user should NOT be able to read tasks', async () => {
+  it('noone should be allowed to update or delete users (from the frontend)', async () => {
     const db = initializeFirestoreTestAppWithUser();
 
     await firebase.assertFails(
-        db.doc('tasks/task-id').get(),
+        db.doc('users/user-id').update({}),
+    );
+    await firebase.assertFails(
+        db.doc('users/user-id').delete(),
     );
   });
 
-  it('non-signedin users should NOT be allowed to update or delete tasks', async () => {
-    const db = initializeFirestoreTestAppWithUser();
-
-    await firebase.assertFails(
-        db.doc('tasks/task-id').update({}),
-    );
-    await firebase.assertFails(
-        db.doc('tasks/task-id').delete(),
-    );
-  });
-
-  it('non-owners should NOT be allowed to update or delete tasks', async () => {
-    const db = initializeFirestoreTestAppWithUser(testUser2);
-
-    await firebase.assertFails(
-        db.doc('tasks/task-id').update({}),
-    );
-    await firebase.assertFails(
-        db.doc('tasks/task-id').delete(),
-    );
-  });
-
-  it('owners should be allowed to update or delete tasks', async () => {
+  it('noone should be allowed to update or delete users (from the frontend)', async () => {
     const db = initializeFirestoreTestAppWithUser(testUser1);
 
-    await firebase.assertSucceeds(
-        db.doc('tasks/task-id').update({}),
+    await firebase.assertFails(
+        db.doc('users/user-id').update({}),
     );
-    await firebase.assertSucceeds(
-        db.doc('tasks/task-id').delete(),
+    await firebase.assertFails(
+        db.doc('users/user-id').delete(),
     );
   });
 });
