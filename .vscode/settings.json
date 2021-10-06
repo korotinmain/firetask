@@ -13,7 +13,6 @@
   },
   "eslint.alwaysShowStatus": true,
   "vsicons.associations.files": [
-    { "icon": "jest", "extensions": ["jest.ci.config.js","jest.firestore.config.js"], "filename": true, "format": "svg" },
     { "icon": "firebasehosting", "extensions": ["storage.rules"], "filename": true, "format": "svg" },
   ],
     "files.watcherExclude": {
