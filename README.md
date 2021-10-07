@@ -70,7 +70,7 @@ Additionally we want to extend the currently quite empty task detail page to add
 - add activities to task detail dialog (only owner should be able to CRUD activities)
   - simple CRUD functionality
   - activity title should be editable inline
-  - activity `icCompleted` flag should be toggle-able
+  - activity `isCompleted` flag should be toggle-able
   - ability to assign someone to an activity (everyone can assign an user to an activity, but there can only be 1 user a assigned to one activity at a time)
     - display avatar of assigned user next to the activity
 - add activities count as badge to each task that has activities at the task dashboard
