@@ -1,6 +1,6 @@
 # 🔥 FireTasks 📋
 
-This a small test project for job applicants of apollo.ai to get a feel of the usual tasks we are facing in our daily dev process. It is a simple kanban-like task management SPA (think of trello simplified to its bare core) using Angular and powered by Firebase services. This is exactly the same technology stack as we use in our current real-life project.
+This a small test project for job applicants of [apollo.ai](https://apollo.ai) to get a feel of the usual tasks we are facing in our daily dev process. It is a simple kanban-like task management SPA (think of trello simplified to its bare core) using Angular and powered by Firebase services. This is exactly the same technology stack as we use in our current real-life project.
 
 ![dashboard](doc/images/dashboard.png)
 
