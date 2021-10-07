@@ -83,7 +83,8 @@ Additionally we want to extend the currently quite empty task detail page to add
 ### Acceptance Criteria / Notes
 
 - the position within a task list is irrelevant and does not need to be persisted.
-- use the existing dependencies and if you really need to add new ones please add a note explaining why you did so.
+- use the existing dependencies as best as you can and if you really need to add new ones please add a note explaining why you did so.
+  - use [Angular Material](https://material.angular.io/) components to create the UI (this also includes the CDK - a set of behavior primitives for building UI components)
 - all changes to the firestore security rules in `firestore.rules` need to be accompanied by a corresponding security rule test (like the ones in `functions/__tests__/securityrules/tasks.spec.ts` or `functions/__tests__/securityrules/users.spec.ts`).
 - feel free to adapt the data models - some tasks might actually require it 😉
 
