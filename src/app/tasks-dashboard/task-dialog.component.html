@@ -14,7 +14,7 @@
     <div fxLayout="row" fxLayoutAlign="space-between center">
       <span class="status">{{ task.status }}</span>
       <span class="owner" *ngIf="isOwner">submitted by me</span>
-      <span class="owner" *ngIf="!isOwner">submitted by: {{ task.owner?.name }}</span>
+      <span class="owner" *ngIf="!isOwner">submitted by: {{ task.owner.name }}</span>
     </div>
     <div class="dates" fxLayout="row" fxLayoutAlign="space-between center">
       <span>created: {{ task.createdAt | date:'medium' }}</span>
