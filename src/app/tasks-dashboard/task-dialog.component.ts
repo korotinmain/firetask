@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, FormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Task, TaskStatus } from '@firetasks/models';
 import { TaskService } from '../services/task.service';
@@ -17,7 +17,7 @@ export interface DialogData {
 export class TaskDialogComponent implements OnInit {
 
   isLoading = false;
-  taskForm: FormGroup;
+  taskForm: UntypedFormGroup;
   task: Task = this.data.task;
 
   get isOwner() {
@@ -27,7 +27,7 @@ export class TaskDialogComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: DialogData,
     private dialogRef: MatDialogRef<TaskDialogComponent>,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private taskService: TaskService,
   ) {
     this.taskForm = this.formBuilder.group({
