@@ -15,7 +15,7 @@ And everyone can list all available users (which is currently only used for the 
 
 ## Technology Stack
 
-- Angular 12.x
+- Angular 14.x
   - [Angular Material](https://material.angular.io/)
   - [Angular Fire](https://firebaseopensource.com/projects/angular/angularfire2/)
 - Firebase services
