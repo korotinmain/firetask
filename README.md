@@ -27,6 +27,7 @@ And everyone can list all available users (which is currently only used for the 
 
 - Node v14.x (best use [nvm](https://github.com/nvm-sh/nvm))
 - Firebase CLI (`npm i -g firebase-tools`)
+- Yarn (`npm i -g yarn`)
 - Java (for local firebase emulators)
 
 ## Local Dev Environment
