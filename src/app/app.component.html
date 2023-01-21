@@ -1,4 +1,4 @@
-<mat-toolbar color="primary">
+<mat-toolbar class="toolbar-container" color="primary">
   <a routerLink="/">
     <img src="assets/images/icon.png" height="40"/>
   </a>
@@ -7,10 +7,10 @@
 
   <span class="spacer"></span>
 
-  <span *ngIf="user">
-    Hello {{ user?.displayName }}!
+  <div class="user-container" *ngIf="user">
+    <span class="greeting">Hello {{ user?.displayName }}!</span>
     <button mat-flat-button (click)="logout()">Logout</button>
-  </span>
+  </div>
 </mat-toolbar>
 
 <div class="content-container">

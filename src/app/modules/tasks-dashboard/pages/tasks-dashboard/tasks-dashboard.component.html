@@ -6,10 +6,13 @@
         <mat-icon>add</mat-icon>
       </button>
     </div>
-    <div class="list" cdkDropList [id]="list.status" cdkDropListOrientation="horizontal"
+    <div class="list"
+         cdkDropList [id]="list.status" cdkDropListOrientation="horizontal"
          [cdkDropListData]="list.tasks" (cdkDropListDropped)="drop($event)">
-      <mat-card cdkDrag [cdkDragData]="task"
-                *ngFor="let task of list.tasks" class="task-card" (click)="showTaskDetail(task)">
+      <mat-card class="task-card" [class.drag-disabled]="user?.uid === task.owner.id"
+                cdkDrag
+                [cdkDragDisabled]="user?.uid === task.owner.id"
+                *ngFor="let task of list.tasks" (click)="showTaskDetail(task)">
         <mat-card-header>
           <mat-icon mat-card-avatar [color]="user?.uid == task.owner.id ? 'accent' : ''">assignment</mat-icon>
           <mat-card-title>{{ task.title }}</mat-card-title>

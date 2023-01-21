@@ -1,8 +1,16 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { UntypedFormBuilder, FormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { Component, Inject, OnInit } from '@angular/core';
+import {
+  UntypedFormBuilder,
+  UntypedFormGroup,
+  Validators,
+  FormArray,
+  FormGroup,
+} from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Task, TaskStatus } from '@firetasks/models';
+import { Task, TaskActivity, TaskStatus, User, UserRef } from '@firetasks/models';
 import { TaskService } from '../../../../core/services/task-service/task.service';
+import { Observable } from 'rxjs';
+import { UserService } from '../../../../core/services/user-service/user.service';
 
 export interface DialogData {
   task: Task;
@@ -19,6 +27,8 @@ export class TaskDialogComponent implements OnInit {
   isLoading = false;
   taskForm: UntypedFormGroup;
   task: Task = this.data.task;
+  users$?: Observable<User[]>;
+  createTaskModel = '';
 
   get isOwner() {
     return this.data.userId && this.data.userId === this.task.owner.id;
@@ -29,17 +39,31 @@ export class TaskDialogComponent implements OnInit {
     private dialogRef: MatDialogRef<TaskDialogComponent>,
     private formBuilder: UntypedFormBuilder,
     private taskService: TaskService,
+    private userService: UserService,
   ) {
     this.taskForm = this.formBuilder.group({
       title: [this.task.title || '', Validators.required],
       status: [this.task.status || TaskStatus.TODO, Validators.required],
+      activities: new FormArray(this.generatedActivitiesControls),
     });
   }
 
+  get generatedActivitiesControls(): Array<FormGroup> {
+    if (!this.task.activities) {
+      return [];
+    }
+    return this.task.activities.map(activity => this.formBuilder.group({
+      title: [activity.title],
+      assignee: [activity.assignee || null],
+      isCompleted: [activity.isCompleted],
+    }));
+  }
+
   ngOnInit(): void {
-    // this.dialogRef.beforeClosed().subscribe(() => {
-    //   return this.save();
-    // });
+    this.users$ = this.userService.subscribeToUsers();
+    this.dialogRef.beforeClosed().subscribe(() => {
+      return this.save();
+    });
   }
 
   save() {
@@ -52,6 +76,34 @@ export class TaskDialogComponent implements OnInit {
     this.taskService.save(this.task).finally(() => {
       this.isLoading = false;
     }).catch(console.error);
+  }
+
+  removeTaskItem(index: number): void {
+    this.activitiesFormArray.removeAt(index);
+  }
+
+  createNewTask(): void {
+    this.activitiesFormArray.insert(0, this.formBuilder.group({
+      title: [this.createTaskModel],
+      assignee: [null],
+      isCompleted: [false],
+    }));
+    this.createTaskModel = '';
+  }
+
+  get activitiesFormArray(): FormArray {
+    return this.taskForm.get('activities') as FormArray;
+  }
+
+  getUserRef(user: User): UserRef {
+    return {
+      id: user.id,
+      name: user.name,
+    }
+  }
+
+  objectComparisonFunction(option: UserRef, value: UserRef): boolean {
+    return option && value && option.id === value.id;
   }
 
   cancel() {

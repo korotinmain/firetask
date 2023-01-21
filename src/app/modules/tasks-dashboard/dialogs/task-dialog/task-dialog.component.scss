@@ -1,28 +1,95 @@
 .dialog {
   position: relative;
   height: 100%;
+  display: flex;
+  flex-direction: column;
 
   .placeholder {
     color: #ccc;
     font-weight: normal;
   }
-  .status {}
+
+  .status {
+  }
+
   .owner {
     font-size: 80%;
     color: #666;
   }
+
   .dates {
     font-size: 80%;
     color: #666;
   }
 }
-.close {
-  position: absolute;
-  right: -10px;
-  top: -10px;
+
+//.close {
+//  position: absolute;
+//  right: -10px;
+//  top: -10px;
+//}
+
+.dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #3f51b5;
+  color: white;
+
+  h2 {
+    width: calc(100% - 60px);
+    color: white;
+    margin: 0;
+  }
+
+  .close {
+    width: 60px;
+  }
 }
-.delete {
-  position: absolute;
-  right: -10px;
-  bottom: -10px;
+
+.dialog-content {
+  .info-container {
+    width: 100%;
+    padding: 5px 0;
+    border-bottom: 1px solid #e0e0e0;
+
+    .owner {
+      .name {
+        font-weight: bold;
+      }
+    }
+  }
+
+  .activities-container {
+    .header {
+      font-weight: bold;
+      font-size: 19px;
+      color: #3f51b5;
+      padding: 13px 13px 8px 13px;
+      text-align: center;
+    }
+
+    .create-task {
+      .input-container {
+        width: 100%;
+        margin-right: 20px;
+
+        mat-form-field {
+          width: 100%;
+        }
+      }
+    }
+
+    .activities {
+      .activity {
+        .activity-info {
+          width: 100%;
+
+          .activity-title {
+            width: 75%;
+          }
+        }
+      }
+    }
+  }
 }

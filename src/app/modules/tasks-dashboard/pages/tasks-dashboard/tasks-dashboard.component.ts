@@ -46,19 +46,19 @@ export class TasksDashboardComponent implements OnInit {
     });
   }
 
-  async showTaskDetail(task: Task): Promise<void> {
+  showTaskDetail(task: Task): void {
     // console.log('showTaskDetail', task);
-    const dialogRef = this.dialog.open(TaskDialogComponent, {
-      width: '450px',
-      height: '600px',
+    this.dialog.open(TaskDialogComponent, {
+      width: '550px',
+      height: '800px',
       data: {
         task,
         userId: this.user?.uid,
       },
     });
 
-    // dialogRef.afterClosed().subscribe(result => {
-    //   console.log('The dialog was closed', result);
+    // dialogRef.afterClosed().subscribe(() => {
+    //   console.log('The dialog was closed');
     // });
   }
 
