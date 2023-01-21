@@ -55,21 +55,19 @@ export class TaskDialogComponent implements OnInit {
     return this.task.activities.map(activity => this.formBuilder.group({
       title: [activity.title],
       assignee: [{value: activity.assignee || null, disabled: !this.isOwner || activity.isCompleted}],
-      isCompleted: [{value: activity.isCompleted, disabled: activity.isCompleted}],
+      isCompleted: [{value: activity.isCompleted || false, disabled: activity.isCompleted || !activity.assignee || activity.assignee.id !== this.data.userId}],
     }));
   }
 
   ngOnInit(): void {
     this.users$ = this.userService.subscribeToUsers();
-    this.dialogRef.beforeClosed().subscribe(() => {
-      return this.save();
-    });
+    this.beforeDialogClosedSubscription();
   }
 
-  save() {
+  save(): void {
     this.isLoading = true;
     this.task = this.task.copyWith({
-      ...this.taskForm.value,
+      ...this.taskForm.getRawValue(),
       updatedAt: new Date(),
     });
 
@@ -106,15 +104,21 @@ export class TaskDialogComponent implements OnInit {
     return option && value && option.id === value.id;
   }
 
-  cancel() {
+  cancel(): void {
     this.taskForm.reset();
   }
 
-  delete() {
+  delete(): void {
     this.isLoading = true;
     this.taskService.delete(this.task).finally(() => {
       this.isLoading = false;
       this.dialogRef.close();
     }).catch(console.error);
+  }
+
+  private beforeDialogClosedSubscription(): void {
+    this.dialogRef.beforeClosed().subscribe(() => {
+      return this.save();
+    });
   }
 }
