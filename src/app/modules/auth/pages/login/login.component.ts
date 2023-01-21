@@ -3,13 +3,12 @@ import { signInWithEmailAndPassword, getAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { User } from '@firetasks/models';
 import { Observable } from 'rxjs';
-
-import { UserService } from '../services/user.service';
+import { UserService } from '../../../../core/services/user-service/user.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
 
@@ -18,7 +17,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private router: Router,
     private userService: UserService,
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.users$ = this.userService.subscribeToUsers();

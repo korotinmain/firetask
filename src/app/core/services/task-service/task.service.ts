@@ -1,25 +1,17 @@
-import { groupBy, mapValues } from 'lodash';
 import { Injectable } from '@angular/core';
-import { Firestore, collectionData, collection, doc, setDoc, deleteDoc } from '@angular/fire/firestore';
-import { Task, TaskModel, TaskStatus } from '@firetasks/models';
+import { CoreServicesModule } from '../../core.services.module';
+import { collection, collectionData, deleteDoc, doc, Firestore, setDoc } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
-
-export interface TasksGrouped {
-  [key: string]: TaskList;
-}
-export interface TaskList {
-  label: string;
-  status: string;
-  order: number;
-  tasks: TaskModel[];
-}
+import { Task, TaskModel, TaskStatus } from '@firetasks/models';
+import { groupBy, mapValues } from 'lodash';
+import { TasksGrouped } from '../../models/tasks.interface';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: CoreServicesModule,
 })
 export class TaskService {
-
-  constructor(private firestore: Firestore) {}
+  constructor(private firestore: Firestore) {
+  }
 
   subscribeToTasks() {
     return collectionData(collection(this.firestore, 'tasks')).pipe(
@@ -33,13 +25,13 @@ export class TaskService {
     );
   }
 
-  save(task: Task) {
+  save(task: Task): Promise<void> {
     let taskRef = task.id ? doc(this.firestore, `tasks/${task.id}`) : doc(collection(this.firestore, 'tasks'));
-    task.id = task.id || taskRef.id;
+    task.id = task.id || taskRef.id;
     return setDoc(taskRef, task.toFirestore());
   }
 
-  delete(task: Task) {
+  delete(task: Task): Promise<void> {
     return deleteDoc(doc(this.firestore, `tasks/${task.id}`));
   }
 

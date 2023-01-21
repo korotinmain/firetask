@@ -2,17 +2,7 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatGridListModule } from '@angular/material/grid-list';
-import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
 import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatListModule } from '@angular/material/list';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatChipsModule } from '@angular/material/chips';
 import { EditableModule } from '@ngneat/edit-in-place';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { USE_EMULATOR as USE_AUTH_EMULATOR } from '@angular/fire/compat/auth';
@@ -25,16 +15,13 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { TasksDashboardComponent } from './tasks-dashboard/tasks-dashboard.component';
-import { TaskDialogComponent } from './tasks-dashboard/task-dialog.component';
-import { LoginComponent } from './auth/login.component';
+import { CoreServicesModule } from './core/core.services.module';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TasksDashboardComponent,
-    TaskDialogComponent,
-    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,18 +29,8 @@ import { LoginComponent } from './auth/login.component';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    MatCardModule,
-    MatChipsModule,
-    MatGridListModule,
-    MatIconModule,
-    MatButtonModule,
-    MatInputModule,
-    MatFormFieldModule,
     LayoutModule,
     FlexLayoutModule,
-    MatToolbarModule,
-    MatListModule,
-    MatDialogModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
@@ -72,6 +49,9 @@ import { LoginComponent } from './auth/login.component';
       return firestore;
     }),
     EditableModule,
+    CoreServicesModule,
+    MatToolbarModule,
+    MatButtonModule,
   ],
   providers: [
     { provide: USE_AUTH_EMULATOR, useValue: !environment.production ? ['http://localhost:4102'] : undefined },

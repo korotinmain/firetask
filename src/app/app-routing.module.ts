@@ -1,29 +1,29 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { LoginComponent } from './auth/login.component';
 import { canActivate, redirectUnauthorizedTo, redirectLoggedInTo } from '@angular/fire/compat/auth-guard';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 const redirectLoggedInToItems = () => redirectLoggedInTo(['']);
 
-import { TasksDashboardComponent } from './tasks-dashboard/tasks-dashboard.component';
+import { APP_ROUTES } from './app.routes';
 
 const routes: Routes = [
   {
     path: '',
-    component: TasksDashboardComponent,
+    loadChildren: () => import('./modules/tasks-dashboard/tasks-dashboard.module').then((m) => m.TasksDashboardModule),
     ...canActivate(redirectUnauthorizedToLogin),
   },
   {
-    path: 'login',
-    component: LoginComponent,
+    path: APP_ROUTES.LOGIN,
+    loadChildren: () => import('./modules/auth/auth.module').then((m) => m.AuthModule),
     ...canActivate(redirectLoggedInToItems),
   },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes),],
-  exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

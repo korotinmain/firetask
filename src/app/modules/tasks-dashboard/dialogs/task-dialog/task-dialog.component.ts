@@ -2,7 +2,7 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { UntypedFormBuilder, FormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Task, TaskStatus } from '@firetasks/models';
-import { TaskService } from '../services/task.service';
+import { TaskService } from '../../../../core/services/task-service/task.service';
 
 export interface DialogData {
   task: Task;
@@ -12,7 +12,7 @@ export interface DialogData {
 @Component({
   selector: 'app-task-dialog',
   templateUrl: './task-dialog.component.html',
-  styleUrls: ['./task-dialog.component.scss']
+  styleUrls: ['./task-dialog.component.scss'],
 })
 export class TaskDialogComponent implements OnInit {
 
@@ -31,7 +31,7 @@ export class TaskDialogComponent implements OnInit {
     private taskService: TaskService,
   ) {
     this.taskForm = this.formBuilder.group({
-      title: [this.task.title || '', Validators.required],
+      title: [this.task.title || '', Validators.required],
       status: [this.task.status || TaskStatus.TODO, Validators.required],
     });
   }

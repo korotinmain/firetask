@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collectionData, collection } from '@angular/fire/firestore';
-import { User } from '@firetasks/models';
+import { CoreServicesModule } from '../../core.services.module';
+import { collection, collectionData, Firestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
+import { User } from '@firetasks/models';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: CoreServicesModule,
 })
 export class UserService {
 

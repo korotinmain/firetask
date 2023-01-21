@@ -2,15 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { Task, TaskModel, TaskStatus } from '@firetasks/models';
-
-import { TaskService, TaskList } from '../services/task.service';
-import { TaskDialogComponent } from './task-dialog.component';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { TaskList } from '../../../../core/models/tasks.interface';
+import { TaskService } from '../../../../core/services/task-service/task.service';
+import { TaskDialogComponent } from '../../dialogs/task-dialog/task-dialog.component';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-tasks-dashboard',
   templateUrl: './tasks-dashboard.component.html',
-  styleUrls: ['./tasks-dashboard.component.scss']
+  styleUrls: ['./tasks-dashboard.component.scss'],
 })
 export class TasksDashboardComponent implements OnInit {
   taskLists$?: Observable<TaskList[]>;
@@ -20,7 +21,8 @@ export class TasksDashboardComponent implements OnInit {
     private dialog: MatDialog,
     private auth: AngularFireAuth,
     private taskService: TaskService,
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.auth.currentUser.then(user => this.user = user as any);
@@ -44,7 +46,7 @@ export class TasksDashboardComponent implements OnInit {
     });
   }
 
-  async showTaskDetail(task: Task) {
+  async showTaskDetail(task: Task): Promise<void> {
     // console.log('showTaskDetail', task);
     const dialogRef = this.dialog.open(TaskDialogComponent, {
       width: '450px',
@@ -58,5 +60,15 @@ export class TasksDashboardComponent implements OnInit {
     // dialogRef.afterClosed().subscribe(result => {
     //   console.log('The dialog was closed', result);
     // });
+  }
+
+  getListStatusId(status: string): string {
+    return status.toLowerCase();
+  }
+
+  drop(event: CdkDragDrop<TaskModel[]>): void {
+    const item = event.previousContainer.data[event.previousIndex];
+    const status: TaskStatus = event.container.id as TaskStatus;
+    this.taskService.save(item.copyWith({status})).then();
   }
 }
