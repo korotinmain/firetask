@@ -65,6 +65,9 @@ export class TaskDialogComponent implements OnInit {
   }
 
   save(): void {
+    if (!this.taskForm.get('title')?.value) {
+      return;
+    }
     this.isLoading = true;
     this.task = this.task.copyWith({
       ...this.taskForm.getRawValue(),
