@@ -41,7 +41,7 @@
     </div>
     <div class="activities-container">
       <div class="header">Activities</div>
-      <div class="create-task" fxLayoutAlign="space-between center">
+      <div class="create-task" fxLayoutAlign="space-between center" *ngIf="isOwner">
         <div class="input-container">
           <mat-form-field appearance="outline">
             <input [(ngModel)]="createTaskModel" [ngModelOptions]="{standalone: true}" type="text" matInput>
@@ -67,7 +67,7 @@
                 </mat-select>
               </mat-form-field>
             </div>
-            <div class="delete">
+            <div class="delete" *ngIf="isOwner">
               <button mat-icon-button (click)="removeTaskItem(i)">
                 <mat-icon>delete</mat-icon>
               </button>

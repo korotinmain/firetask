@@ -54,8 +54,8 @@ export class TaskDialogComponent implements OnInit {
     }
     return this.task.activities.map(activity => this.formBuilder.group({
       title: [activity.title],
-      assignee: [activity.assignee || null],
-      isCompleted: [activity.isCompleted],
+      assignee: [{value: activity.assignee || null, disabled: !this.isOwner || activity.isCompleted}],
+      isCompleted: [{value: activity.isCompleted, disabled: activity.isCompleted}],
     }));
   }
 
@@ -86,7 +86,7 @@ export class TaskDialogComponent implements OnInit {
     this.activitiesFormArray.insert(0, this.formBuilder.group({
       title: [this.createTaskModel],
       assignee: [null],
-      isCompleted: [false],
+      isCompleted: [],
     }));
     this.createTaskModel = '';
   }
