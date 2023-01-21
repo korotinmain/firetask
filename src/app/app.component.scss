@@ -1,5 +1,12 @@
-.spacer {
-  flex: 1 1 auto;
+.toolbar-container {
+  .spacer {
+    flex: 1 1 auto;
+  }
+  .user-container {
+    .greeting {
+      margin-right: 15px;
+    }
+  }
 }
 .content-container {
   padding: 20px;
